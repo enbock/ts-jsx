@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@enbock/ts-jsx",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "sourceRoot": "src",
+    "sourceMap": true
+  },
+  "exclude": [
+    "*.test.tsx"
+  ]
+}

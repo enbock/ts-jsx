@@ -1,0 +1,39 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="21">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="sl-primary-input" />
+            <item index="7" class="java.lang.String" itemvalue="sl-primary-list" />
+            <item index="8" class="java.lang.String" itemvalue="sl-navigation" />
+            <item index="9" class="java.lang.String" itemvalue="input-frame" />
+            <item index="10" class="java.lang.String" itemvalue="sl-entire-list" />
+            <item index="11" class="java.lang.String" itemvalue="entire-list" />
+            <item index="12" class="java.lang.String" itemvalue="primary-input" />
+            <item index="13" class="java.lang.String" itemvalue="list-frame" />
+            <item index="14" class="java.lang.String" itemvalue="list-entity" />
+            <item index="15" class="java.lang.String" itemvalue="list-label" />
+            <item index="16" class="java.lang.String" itemvalue="label-list" />
+            <item index="17" class="java.lang.String" itemvalue="button-list" />
+            <item index="18" class="java.lang.String" itemvalue="visual-background" />
+            <item index="19" class="java.lang.String" itemvalue="entity-list" />
+            <item index="20" class="java.lang.String" itemvalue="navigation" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="JSMethodCanBeStatic" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSXNamespaceValidation" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PointlessBooleanExpressionJS" enabled="false" level="WARNING" enabled_by_default="false" />
+  </profile>
+</component>

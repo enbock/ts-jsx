@@ -1,0 +1,30 @@
+{
+  "name": "example-page",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "webpack serve --open --mode development --no-open --no-live-reload --no-hot --stats-error-details",
+    "build": "webpack --mode production",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/dom": "^8.12.0",
+    "@testing-library/jest-dom": "^5.16.3",
+    "@enbock/ts-jsx": "^0.1.0",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.5.1",
+    "jest-mock-extended": "^2.0.5",
+    "style-loader": "^3.3.1",
+    "ts-jest": "^27.1.4",
+    "ts-loader": "^9.2.8",
+    "typescript": "^4.6.3",
+    "webpack": "^5.71.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  }
+}
