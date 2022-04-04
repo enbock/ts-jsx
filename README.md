@@ -115,7 +115,7 @@ Here you find the [full example](example/step1/index.tsx) of the [`index.tsx`](e
 Run `npm start` and open the local page http://localhost:3000/
 
 *Notice:* The IntelliJ may report a missing React-Import. Just disable the warning:    
-![Disable mit React import warning](doc/images/disable_react_inspection.png)
+![Disable mit React import warning](https://raw.githubusercontent.com/enbock/ts-jsx/main/doc/images/disable_react_inspection.png)
 
 ## Step 2: The first component
 It will be time for our first component. We want to create a simple button
@@ -141,11 +141,10 @@ const node: HTMLElement = ShadowRenderer.render(<HelloButton/>);
 document.body.append(node);
 ```
 Here we are! The first shadow component:
-![first rendering](doc/images/empty_component_output.png)
-![document dom tree]()
+![first rendering](https://raw.githubusercontent.com/enbock/ts-jsx/main/doc/images/empty_component_output.png)
 
 ### Next: 
-[Create a button in the component](doc/step2/CreateAButton.md)
+[Create a button in the component](https://github.com/enbock/ts-jsx/blob/main/doc/step2/CreateAButton.md)
 
 ## LICENSE
 
