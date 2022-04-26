@@ -45,7 +45,7 @@ Use the [example webpack.config.js] to get a simple project start.
 And testing? I'd like to use [Jest] (with TypeScript [ts-jest]) and [Testing-Library] as well:
 
 ```shell
-npm install --save-dev jest jest-mock-extended ts-jest @testing-library/dom @testing-library/jest-dom 
+npm install --save-dev jest jest-mock-extended ts-jest @testing-library/dom @testing-library/jest-dom jest-environment-jsdom
 ```
 
 Now we need to configure the TypeScript compiler to accept react-jsx with this tiny library:

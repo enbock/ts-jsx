@@ -2,8 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": true,
-    "module": "ES6",
-    "target": "ES2020",
+    "module": "CommonJS",
+    "target": "ESNext",
     "strict": true,
     "listEmittedFiles": true,
     "allowSyntheticDefaultImports": true,
