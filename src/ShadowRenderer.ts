@@ -59,9 +59,10 @@ export default class ShadowRenderer {
             return;
         }
         for (const key of Object.keys(result.props)) {
-            if (key.substring(0, 3) == 'on-' || key.match(/^on[A-Z]/) !== null)
+            let isOnDashStyle:boolean = key.substring(0, 3) == 'on-';
+            if (isOnDashStyle || key.match(/^on[A-Z]/) !== null)
                 domNode.addEventListener(
-                    key.substring(key.substring(2, 1) == '-' ? 3 : 2).toLowerCase(),
+                    key.substring(isOnDashStyle ? 3 : 2).toLowerCase(),
                     result.props[key]
                 );
             else

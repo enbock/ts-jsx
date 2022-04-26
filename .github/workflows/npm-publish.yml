@@ -30,9 +30,17 @@ jobs:
       - run: cp package.json ./dist/
       - run: cp LICENSE ./dist/
       - run: cp README.md ./dist/
+      - run: cp -r example ./dist/
+      - run: cp -r doc ./dist/
       - run: npm publish ./dist/
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - run: |
+          cat package.json | sed '|"name": "@enbock/ts-jsx"|"name": "ts-jsx"|' > ./dist/package.json
+      - run: npm publish ./dist/
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   publish-gpr:
     needs: test
@@ -47,7 +55,9 @@ jobs:
       - run: npm run build
       - run: cp package.json ./dist/
       - run: cp LICENSE ./dist/
-      - run: cp README.md
+      - run: cp README.md ./dist/
+      - run: cp -r example ./dist/
+      - run: cp -r doc ./dist/
       - run: npm publish ./dist/
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
