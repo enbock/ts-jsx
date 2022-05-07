@@ -16,6 +16,7 @@ export interface ComponentProperties {
 // noinspection JSUnusedGlobalSymbols
 export default class Component<Properties extends ComponentProperties = ComponentProperties> extends HTMLElement {
     public static dependencyInjection: any[] = [];
+    public static componentReceiver:ShadowComponentReceiver | undefined;
     public name: string = '';
     private renderer: typeof ShadowRenderer | undefined;
 

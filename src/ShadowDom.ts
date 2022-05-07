@@ -1,11 +1,13 @@
 // noinspection JSUnusedGlobalSymbols
-import Component, {ComponentProperties} from './Component';
+import Component, {ComponentProperties, ShadowComponentReceiver} from './Component';
 
 export type ShadowDomElement = ShadowDomNode | string
+export const ShadowFragment: string = 'ShadowDomNode::Fragment';
 
 export interface ShadowDomNode {
     isNode: boolean,
     component?: typeof Component,
+    componentReceiver?: ShadowComponentReceiver
     props: ComponentProperties,
     tagName: string
     children: (ShadowDomNode | string)[]
@@ -24,6 +26,7 @@ export default class ShadowDom {
         props: ComponentProperties & JSXChildren
     ): ShadowDomElement | ShadowDomElement[] {
         const subNodes: JSXElementCollection = props.children || [];
+        if (component === ShadowFragment) return subNodes as ShadowDomElement[];
         delete (props.children);
         if (Array.isArray(component)) return component;
         let jsxName: string = component as string;
@@ -63,6 +66,7 @@ export default class ShadowDom {
         return {
             isNode: true,
             component: isComponent ? (component as typeof Component) : undefined,
+            componentReceiver: isComponent ? (component as typeof Component).componentReceiver : undefined,
             tagName: jsxName,
             props: props,
             children: children

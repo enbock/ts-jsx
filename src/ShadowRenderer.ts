@@ -38,6 +38,7 @@ export default class ShadowRenderer {
             ShadowRenderer.updateNode(result, component);
             if (result.props.attach !== undefined) result.props.attach.setComponent(component);
         }
+        if (result.componentReceiver !== undefined) result.componentReceiver.setComponent(component);
 
         return component;
     }
