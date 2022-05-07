@@ -59,14 +59,15 @@ export default class ShadowRenderer {
             (domNode as Component).updateProps(result.props);
             return;
         }
+        if (result.tagName === 'input') {
+            (domNode as HTMLInputElement).value = result.props.value;
+        }
         for (const key of Object.keys(result.props)) {
-            let isOnDashStyle:boolean = key.substring(0, 3) == 'on-';
-            if (isOnDashStyle || key.match(/^on[A-Z]/) !== null)
-                domNode.addEventListener(
-                    key.substring(isOnDashStyle ? 3 : 2).toLowerCase(),
-                    result.props[key]
-                );
-            else
+            const isOnDashStyle: boolean = key.substring(0, 3) == 'on-';
+            if (isOnDashStyle || key.match(/^on[A-Z]/) !== null) {
+                const eventName:string = key.substring(isOnDashStyle ? 3 : 2).toLowerCase();
+                (domNode as any)['on' + eventName] = result.props[key];
+            } else
                 domNode.setAttribute(key, result.props[key]);
         }
     }
