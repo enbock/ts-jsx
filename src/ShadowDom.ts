@@ -26,7 +26,9 @@ export default class ShadowDom {
         props: ComponentProperties & JSXChildren
     ): ShadowDomElement | ShadowDomElement[] {
         const subNodes: JSXElementCollection = props.children || [];
-        if (component === ShadowFragment) return subNodes as ShadowDomElement[];
+        const children: ShadowDomElement[] = [];
+        ShadowDom.flattenChildren(children, subNodes);
+        if (component === ShadowFragment) return children;
         delete (props.children);
         if (Array.isArray(component)) return component;
         let jsxName: string = component as string;
@@ -59,9 +61,6 @@ export default class ShadowDom {
                 jsxName = ShadowDom.definedComponents.get(component) as string;
             }
         }
-
-        const children: ShadowDomElement[] = [];
-        ShadowDom.flattenChildren(children, subNodes);
 
         return {
             isNode: true,
