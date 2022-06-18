@@ -65,10 +65,15 @@ export default class ShadowRenderer {
         for (const key of Object.keys(result.props)) {
             const isOnDashStyle: boolean = key.substring(0, 3) == 'on-';
             if (isOnDashStyle || key.match(/^on[A-Z]/) !== null) {
-                const eventName:string = key.substring(isOnDashStyle ? 3 : 2).toLowerCase();
+                const eventName: string = key.substring(isOnDashStyle ? 3 : 2).toLowerCase();
                 (domNode as any)['on' + eventName] = result.props[key];
             } else
                 domNode.setAttribute(key, result.props[key]);
+        }
+        for (let ai: number = 0; ai < domNode.attributes.length; ai++) {
+            const key: string = domNode.attributes.item(ai)!.name;
+            if (Object.hasOwn(result.props, key)) continue;
+            domNode.attributes.removeNamedItem(key);
         }
     }
 
