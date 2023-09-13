@@ -25,6 +25,12 @@ in time, without to be scary any time and without risking the success of the pro
 
 [Software craftsmanship]: https://en.wikipedia.org/wiki/Software_craftsmanship
 
+## Pre-Release
+
+After a year of testing and searching for edge-case I decide to do the first release.
+
+As the code currently is, I'll name it "Chaos mansion"
+
 ## Getting started
 
 Installing library
