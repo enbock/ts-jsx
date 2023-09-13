@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 npm run build
-cü package.json ./dist/package.json
+cp package.json ./dist/package.json
 cp LICENSE ./dist/
 cp README.md ./dist/
 cp -r example ./dist/
