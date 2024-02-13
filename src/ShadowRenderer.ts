@@ -59,7 +59,7 @@ export default class ShadowRenderer {
             (domNode as Component).updateProps(result.props);
             return;
         }
-        if (result.tagName === 'input') {
+        if (result.tagName === 'input' && result.props.hasOwnProperty('value')) {
             (domNode as HTMLInputElement).value = result.props.value;
         }
         for (const key of Object.keys(result.props)) {
