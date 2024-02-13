@@ -13,26 +13,6 @@ export interface ComponentProperties {
     [name: string]: any;
 }
 
-export function mock<T>(component: T): void {
-    const staticReference: typeof Component = component as any;
-
-    function mockedFactory<T extends Component>(): T {
-        let node: T = document.createElement('div') as any;
-        const output: string = 'test::' + staticReference.name + ':';
-        const textNode: Text = document.createTextNode(output);
-        node.appendChild(textNode);
-        node.updateProps = function (props: any) {
-            const shownProps: any = {...props};
-            if (shownProps.hasOwnProperty('attach')) shownProps.attach = shownProps.attach.toString();
-            if (shownProps.hasOwnProperty('adapter')) shownProps.adapter = shownProps.adapter.toString();
-            textNode.nodeValue = output + JSON.stringify(shownProps);
-        };
-        return node;
-    }
-
-    staticReference.factory = mockedFactory;
-}
-
 // noinspection JSUnusedGlobalSymbols
 export default class Component<Properties extends ComponentProperties = ComponentProperties> extends HTMLElement {
     public static dependencyInjection: any[] = [];
