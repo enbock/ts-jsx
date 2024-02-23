@@ -59,14 +59,21 @@ export default class ShadowRenderer {
             (domNode as Component).updateProps(result.props);
             return;
         }
-        if (domNode.hasOwnProperty('value') && result.props.hasOwnProperty('value')) {
+        if (
+            (
+                domNode.tagName.toUpperCase() == 'INPUT' ||
+                domNode.hasOwnProperty('value')
+            )
+            && result.props.hasOwnProperty('value')
+        ) {
             (<HTMLInputElement>domNode).value = result.props.value;
         }
-        if(domNode.tagName.toUpperCase() == 'SELECT' && result.props.hasOwnProperty('value')) {
-            const options:HTMLCollectionOf<HTMLOptionElement> = <HTMLCollectionOf<HTMLOptionElement>>domNode.getElementsByTagName('OPTION');
-            for(let i=0; i< options.length; i++) {
+        if (domNode.tagName.toUpperCase() == 'SELECT' && result.props.hasOwnProperty('value')) {
+            const options: HTMLCollectionOf<HTMLOptionElement> = <HTMLCollectionOf<HTMLOptionElement>>domNode.getElementsByTagName(
+                'OPTION');
+            for (let i = 0; i < options.length; i++) {
                 if (result.props.value != options[i].value) continue;
-                if(domNode.hasOwnProperty('selectedValue'))
+                if (domNode.hasOwnProperty('selectedValue'))
                     (<any>domNode).selectedValue = result.props.value;
                 (<HTMLSelectElement>domNode).selectedIndex = i;
             }
