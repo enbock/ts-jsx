@@ -131,7 +131,11 @@ export default class ShadowRenderer {
 
                     const shadowToRemove: ShadowRendererNode[] = shadowNodes.splice(shadowCount, shadowReplaceAmount);
                     shadowToRemove.forEach((s: ShadowRendererNode) => {
-                        root.removeChild(s.domNode);
+                        try {
+                            root.removeChild(s.domNode);
+                        } catch {
+                            console.warn("TS-JSX: Unexpected child placement while removal.")
+                        }
                     });
 
                     const insertNodes: ShadowDomElement[] = results.splice(resultCount, nodeInsertAmount);
