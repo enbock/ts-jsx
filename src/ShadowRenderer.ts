@@ -134,7 +134,7 @@ export default class ShadowRenderer {
                         try {
                             root.removeChild(s.domNode);
                         } catch {
-                            console.warn("TS-JSX: Unexpected child placement while removal.")
+                            console.warn("TS-JSX: Unexpected child placement while removal.");
                         }
                     });
 
