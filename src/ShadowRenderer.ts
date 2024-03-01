@@ -69,8 +69,8 @@ export default class ShadowRenderer {
             (<HTMLInputElement>domNode).value = result.props.value;
         }
         if (domNode.tagName.toUpperCase() == 'SELECT' && result.props.hasOwnProperty('value')) {
-            const options: HTMLCollectionOf<HTMLOptionElement> = <HTMLCollectionOf<HTMLOptionElement>>domNode.getElementsByTagName(
-                'OPTION');
+            const options: HTMLCollectionOf<HTMLOptionElement> =
+                <HTMLCollectionOf<HTMLOptionElement>>domNode.getElementsByTagName('OPTION');
             for (let i = 0; i < options.length; i++) {
                 if (result.props.value != options[i].value) continue;
                 if (domNode.hasOwnProperty('selectedValue'))
@@ -86,10 +86,18 @@ export default class ShadowRenderer {
             } else
                 domNode.setAttribute(key, result.props[key]);
         }
+        const attributesToRemove:Array<string> = [];
         for (let ai: number = 0; ai < domNode.attributes.length; ai++) {
             const key: string = domNode.attributes.item(ai)!.name;
             if (Object.hasOwn(result.props, key)) continue;
-            domNode.attributes.removeNamedItem(key);
+            attributesToRemove.push(key);
+        }
+        for(let key of attributesToRemove) {
+            try {
+                domNode.attributes.removeNamedItem(key);
+            } catch {
+                console.warn("TS-JSX: Unexpected missing attribute '"+key+"' while cleaning attributes.");
+            }
         }
     }
 
@@ -127,7 +135,7 @@ export default class ShadowRenderer {
                     const shadowReplaceAmount = match.shadowCount - shadowCount;
                     const nodeInsertAmount = match.resultCount - resultCount;
 
-                    if (shadowReplaceAmount == 0 && nodeInsertAmount == 0) throw new Error('RAUS!!');
+                    if (shadowReplaceAmount == 0 && nodeInsertAmount == 0) throw new Error('TS-JSX: Unexpected nothing to change.');
 
                     const shadowToRemove: ShadowRendererNode[] = shadowNodes.splice(shadowCount, shadowReplaceAmount);
                     shadowToRemove.forEach((s: ShadowRendererNode) => {
@@ -145,8 +153,10 @@ export default class ShadowRenderer {
                             root,
                             shadowNodes);
                         if ((insertResult as ShadowDomNode).isNode === true)
-                            ShadowRenderer.iterateLevel((insertResult as ShadowDomNode).children,
-                                insertedShadow.domNode);
+                            ShadowRenderer.iterateLevel(
+                                (insertResult as ShadowDomNode).children,
+                                insertedShadow.domNode
+                            );
                         shadowCount++;
                     });
 
