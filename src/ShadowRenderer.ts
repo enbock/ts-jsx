@@ -86,17 +86,17 @@ export default class ShadowRenderer {
             } else
                 domNode.setAttribute(key, result.props[key]);
         }
-        const attributesToRemove:Array<string> = [];
+        const attributesToRemove: Array<string> = [];
         for (let ai: number = 0; ai < domNode.attributes.length; ai++) {
             const key: string = domNode.attributes.item(ai)!.name;
             if (Object.hasOwn(result.props, key)) continue;
             attributesToRemove.push(key);
         }
-        for(let key of attributesToRemove) {
+        for (let key of attributesToRemove) {
             try {
                 domNode.attributes.removeNamedItem(key);
             } catch {
-                console.warn("TS-JSX: Unexpected missing attribute '"+key+"' while cleaning attributes.");
+                console.warn('TS-JSX: Unexpected missing attribute \'' + key + '\' while cleaning attributes.');
             }
         }
     }
@@ -113,7 +113,11 @@ export default class ShadowRenderer {
             if (resultCount >= results.length) {
                 if (shadowCount < shadowNodes.length) {
                     const removeNode: ShadowRendererNode[] = shadowNodes.splice(shadowCount, 1);
-                    root.removeChild(removeNode[0].domNode);
+                    try {
+                        root.removeChild(removeNode[0].domNode);
+                    } catch {
+                        console.warn('TS-JSX: Unexpected child placement while removal.');
+                    }
                     continue;
                 } else {
                     break;
@@ -135,14 +139,15 @@ export default class ShadowRenderer {
                     const shadowReplaceAmount = match.shadowCount - shadowCount;
                     const nodeInsertAmount = match.resultCount - resultCount;
 
-                    if (shadowReplaceAmount == 0 && nodeInsertAmount == 0) throw new Error('TS-JSX: Unexpected nothing to change.');
+                    if (shadowReplaceAmount == 0 && nodeInsertAmount == 0) throw new Error(
+                        'TS-JSX: Unexpected nothing to change.');
 
                     const shadowToRemove: ShadowRendererNode[] = shadowNodes.splice(shadowCount, shadowReplaceAmount);
                     shadowToRemove.forEach((s: ShadowRendererNode) => {
                         try {
                             root.removeChild(s.domNode);
                         } catch {
-                            console.warn("TS-JSX: Unexpected child placement while removal.");
+                            console.warn('TS-JSX: Unexpected child placement while removal.');
                         }
                     });
 
