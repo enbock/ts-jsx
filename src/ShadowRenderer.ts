@@ -54,6 +54,7 @@ export default class ShadowRenderer {
     }
 
     private static updateNode(result: ShadowDomNode, domNode: HTMLElement | Component) {
+        const nextFrameCalls: Array<() => void> = [];
         if (result.props == null) return;
         if (result.component !== undefined) {
             (domNode as Component).updateProps(result.props);
@@ -69,14 +70,16 @@ export default class ShadowRenderer {
             (<HTMLInputElement>domNode).value = result.props.value;
         }
         if (domNode.tagName.toUpperCase() == 'SELECT' && result.props.hasOwnProperty('value')) {
-            const options: HTMLCollectionOf<HTMLOptionElement> =
-                <HTMLCollectionOf<HTMLOptionElement>>domNode.getElementsByTagName('OPTION');
-            for (let i = 0; i < options.length; i++) {
-                if (result.props.value != options[i].value) continue;
-                if (domNode.hasOwnProperty('selectedValue'))
-                    (<any>domNode).selectedValue = result.props.value;
-                (<HTMLSelectElement>domNode).selectedIndex = i;
-            }
+            nextFrameCalls.push(function updateSelectIndex(): void {
+                const options: HTMLCollectionOf<HTMLOptionElement> =
+                    <HTMLCollectionOf<HTMLOptionElement>>domNode.getElementsByTagName('OPTION');
+                for (let i = 0; i < options.length; i++) {
+                    if (result.props.value != options[i].value) continue;
+                    if (domNode.hasOwnProperty('selectedValue'))
+                        (<any>domNode).selectedValue = result.props.value;
+                    (<HTMLSelectElement>domNode).selectedIndex = i;
+                }
+            });
         }
         for (const key of Object.keys(result.props)) {
             const isOnDashStyle: boolean = key.substring(0, 3) == 'on-';
@@ -99,6 +102,8 @@ export default class ShadowRenderer {
                 console.warn('TS-JSX: Unexpected missing attribute \'' + key + '\' while cleaning attributes.');
             }
         }
+
+        window.requestAnimationFrame(() => nextFrameCalls.forEach(c => c()));
     }
 
     private static iterateLevel(results: ShadowDomElement | ShadowDomElement[], root: HTMLElement | ShadowRoot): void {
