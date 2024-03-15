@@ -103,7 +103,9 @@ export default class ShadowRenderer {
             }
         }
 
-        window.requestAnimationFrame(() => nextFrameCalls.forEach(c => c()));
+        const handlerCallback: () => void = () => nextFrameCalls.forEach(c => c());
+        if(window.requestAnimationFrame) window.requestAnimationFrame(handlerCallback);
+        else setTimeout(handlerCallback, 1);
     }
 
     private static iterateLevel(results: ShadowDomElement | ShadowDomElement[], root: HTMLElement | ShadowRoot): void {
