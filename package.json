@@ -1,6 +1,6 @@
 {
   "name": "@enbock/ts-jsx",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "An simple JSX rendering based on ShadowDOMv1.",
   "license": "MIT",
   "author": "Endre Bock <endre@itbock.de>",

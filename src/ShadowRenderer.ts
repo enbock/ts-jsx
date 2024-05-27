@@ -65,12 +65,7 @@ export default class ShadowRenderer {
                 (<HTMLInputElement>domNode).value = result.props.value;
             }
             if (String(domNode.getAttribute('type')).toLowerCase() == 'checkbox') {
-                (<HTMLInputElement>domNode).checked =
-                    result.props.checked === true ||
-                    result.props.checked == 'true' ||
-                    result.props.checked == 'on' ||
-                    false
-                ;
+                (<HTMLInputElement>domNode).checked = result.props.checked || result.props.checked === '';
             }
         }
         if (domNode.tagName.toUpperCase() == 'SELECT' && result.props.hasOwnProperty('value')) {
