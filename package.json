@@ -1,6 +1,6 @@
 {
   "name": "@enbock/ts-jsx",
-  "version": "0.1.9",
+  "version": "0.1.16",
   "description": "An simple JSX rendering based on ShadowDOMv1.",
   "license": "MIT",
   "author": "Endre Bock <endre@itbock.de>",
@@ -9,7 +9,8 @@
   },
   "main": "src/jsx-runtime.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "./build.sh"
   },
   "keywords": [
     "jsx",

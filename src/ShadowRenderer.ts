@@ -60,14 +60,18 @@ export default class ShadowRenderer {
             (domNode as Component).updateProps(result.props);
             return;
         }
-        if (
-            (
-                domNode.tagName.toUpperCase() == 'INPUT' ||
-                domNode.hasOwnProperty('value')
-            )
-            && result.props.hasOwnProperty('value')
-        ) {
-            (<HTMLInputElement>domNode).value = result.props.value;
+        if (domNode.tagName.toUpperCase() == 'INPUT') {
+            if (domNode.hasOwnProperty('value') && result.props.hasOwnProperty('value')) {
+                (<HTMLInputElement>domNode).value = result.props.value;
+            }
+            if (String(domNode.getAttribute('type')).toLowerCase() == 'checkbox') {
+                (<HTMLInputElement>domNode).checked =
+                    result.props.checked === true ||
+                    result.props.checked == 'true' ||
+                    result.props.checked == 'on' ||
+                    false
+                ;
+            }
         }
         if (domNode.tagName.toUpperCase() == 'SELECT' && result.props.hasOwnProperty('value')) {
             nextFrameCalls.push(function updateSelectIndex(): void {
@@ -104,7 +108,7 @@ export default class ShadowRenderer {
         }
 
         const handlerCallback: () => void = () => nextFrameCalls.forEach(c => c());
-        if(window.requestAnimationFrame) window.requestAnimationFrame(handlerCallback);
+        if (window.requestAnimationFrame) window.requestAnimationFrame(handlerCallback);
         else setTimeout(handlerCallback, 1);
     }
 
