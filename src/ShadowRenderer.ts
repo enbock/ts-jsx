@@ -61,7 +61,7 @@ export default class ShadowRenderer {
             return;
         }
         if (domNode.tagName.toUpperCase() == 'INPUT') {
-            if (domNode.hasOwnProperty('value') && result.props.hasOwnProperty('value')) {
+            if (result.props.hasOwnProperty('value')) {
                 (<HTMLInputElement>domNode).value = result.props.value;
             }
             if (String(domNode.getAttribute('type')).toLowerCase() == 'checkbox') {
