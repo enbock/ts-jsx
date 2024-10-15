@@ -60,26 +60,6 @@ export default class ShadowRenderer {
             (domNode as Component).updateProps(result.props);
             return;
         }
-        if (domNode.tagName.toUpperCase() == 'INPUT') {
-            if (result.props.hasOwnProperty('value')) {
-                (<HTMLInputElement>domNode).value = result.props.value;
-            }
-            if (String(domNode.getAttribute('type')).toLowerCase() == 'checkbox') {
-                (<HTMLInputElement>domNode).checked = result.props.checked || result.props.checked === '';
-            }
-        }
-        if (domNode.tagName.toUpperCase() == 'SELECT' && result.props.hasOwnProperty('value')) {
-            nextFrameCalls.push(function updateSelectIndex(): void {
-                const options: HTMLCollectionOf<HTMLOptionElement> =
-                    <HTMLCollectionOf<HTMLOptionElement>>domNode.getElementsByTagName('OPTION');
-                for (let i = 0; i < options.length; i++) {
-                    if (result.props.value != options[i].value) continue;
-                    if (domNode.hasOwnProperty('selectedValue'))
-                        (<any>domNode).selectedValue = result.props.value;
-                    (<HTMLSelectElement>domNode).selectedIndex = i;
-                }
-            });
-        }
         for (const key of Object.keys(result.props)) {
             const isOnDashStyle: boolean = key.substring(0, 3) == 'on-';
             if (isOnDashStyle || key.match(/^on[A-Z]/) !== null) {
@@ -100,6 +80,26 @@ export default class ShadowRenderer {
             } catch {
                 console.warn('TS-JSX: Unexpected missing attribute \'' + key + '\' while cleaning attributes.');
             }
+        }
+        if (domNode.tagName.toUpperCase() == 'INPUT') {
+            if (result.props.hasOwnProperty('value')) {
+                (<HTMLInputElement>domNode).value = result.props.value;
+            }
+            if (String(domNode.getAttribute('type')).toLowerCase() == 'checkbox') {
+                (<HTMLInputElement>domNode).checked = result.props.checked || result.props.checked === '';
+            }
+        }
+        if (domNode.tagName.toUpperCase() == 'SELECT' && result.props.hasOwnProperty('value')) {
+            nextFrameCalls.push(function updateSelectIndex(): void {
+                const options: HTMLCollectionOf<HTMLOptionElement> =
+                    <HTMLCollectionOf<HTMLOptionElement>>domNode.getElementsByTagName('OPTION');
+                for (let i = 0; i < options.length; i++) {
+                    if (result.props.value != options[i].value) continue;
+                    if (domNode.hasOwnProperty('selectedValue'))
+                        (<any>domNode).selectedValue = result.props.value;
+                    (<HTMLSelectElement>domNode).selectedIndex = i;
+                }
+            });
         }
 
         const handlerCallback: () => void = () => nextFrameCalls.forEach(c => c());
