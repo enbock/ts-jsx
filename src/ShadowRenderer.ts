@@ -65,8 +65,11 @@ export default class ShadowRenderer {
             if (isOnDashStyle || key.match(/^on[A-Z]/) !== null) {
                 const eventName: string = key.substring(isOnDashStyle ? 3 : 2).toLowerCase();
                 (domNode as any)['on' + eventName] = result.props[key];
-            } else
-                domNode.setAttribute(key, result.props[key]);
+            } else {
+                const newValue:string = result.props[key];
+                const oldValue: string = domNode.getAttribute(key) || '';
+                if(oldValue != newValue) domNode.setAttribute(key, result.props[key]);
+            }
         }
         const attributesToRemove: Array<string> = [];
         for (let ai: number = 0; ai < domNode.attributes.length; ai++) {
