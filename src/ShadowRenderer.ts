@@ -68,7 +68,8 @@ export default class ShadowRenderer {
             } else {
                 const newValue:string = result.props[key];
                 const oldValue: string = domNode.getAttribute(key) || '';
-                if(oldValue != newValue) domNode.setAttribute(key, result.props[key]);
+                const isExisting: boolean = domNode.hasAttribute(key);
+                if(isExisting == false || oldValue != newValue) domNode.setAttribute(key, result.props[key]);
             }
         }
         const attributesToRemove: Array<string> = [];
